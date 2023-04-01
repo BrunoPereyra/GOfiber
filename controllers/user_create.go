@@ -18,7 +18,7 @@ func CreateUser(c *fiber.Ctx) error {
 
 	result, err := db.InsertOne(context.TODO(), bson.D{{
 		Key:   "name",
-		Value: user.Name,
+		Value: user.NameUser,
 	}})
 	fmt.Print(user)
 	if err != nil {
