@@ -13,6 +13,7 @@ func parseToken(tokenString string) (*jwt.Token, error) {
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println("B")
 	if !token.Valid {
 		return nil, fmt.Errorf("Invalid token")
 	}
@@ -22,6 +23,7 @@ func parseToken(tokenString string) (*jwt.Token, error) {
 
 func ExtractDataFromToken(tokenString string) (string, error) {
 	// Primero, parsea el token
+
 	token, err := parseToken(tokenString)
 	if err != nil {
 		return "", err

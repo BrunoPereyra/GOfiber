@@ -2,7 +2,6 @@ package jwt
 
 import (
 	"backend/api/models"
-	"fmt"
 	"time"
 
 	"github.com/golang-jwt/jwt"
@@ -11,7 +10,6 @@ import (
 // Define los datos del usuario
 
 func TokenCreate(user models.User) (string, error) {
-	fmt.Println(user)
 	claims := jwt.MapClaims{
 		"id":       user.ID,
 		"username": user.NameUser,
