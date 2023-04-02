@@ -6,14 +6,9 @@ import (
 	"github.com/golang-jwt/jwt"
 )
 
-func ParseToken(tokenString string) (*jwt.Token, error) {
+func parseToken(tokenString string) (*jwt.Token, error) {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		// Verifica que el algoritmo de firma sea HS256
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("Invalid signing method")
-		}
-		// Debe devolver la clave secreta que se usó para firmar el token
-		return []byte("secreto"), nil
+		return []byte("mi_clave_secreta"), nil
 	})
 	if err != nil {
 		return nil, err
@@ -21,22 +16,22 @@ func ParseToken(tokenString string) (*jwt.Token, error) {
 	if !token.Valid {
 		return nil, fmt.Errorf("Invalid token")
 	}
+
 	return token, nil
 }
 
 func ExtractDataFromToken(tokenString string) (string, error) {
 	// Primero, parsea el token
-	token, err := ParseToken(tokenString)
+	token, err := parseToken(tokenString)
 	if err != nil {
 		return "", err
 	}
-
-	// Luego, accede a los claims del token paras obtener los datos que necesitas
+	// Luego, accede a los claims del token para obtener los datos que necesitas
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if !ok {
 		return "", fmt.Errorf("Invalid claims")
 	}
-	nameUser, ok := claims["nameUser"].(string)
+	nameUser, ok := claims["username"].(string)
 	if !ok {
 		return "", fmt.Errorf("Invalid nameUser")
 	}
