@@ -31,7 +31,7 @@ func ExtractDataFromToken(tokenString string) (string, error) {
 		return "", err
 	}
 
-	// Luego, accede a los claims del token para obtener los datos que necesitas
+	// Luego, accede a los claims del token paras obtener los datos que necesitas
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if !ok {
 		return "", fmt.Errorf("Invalid claims")
