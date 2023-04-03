@@ -10,10 +10,10 @@ func parseToken(tokenString string) (*jwt.Token, error) {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return []byte("mi_clave_secreta"), nil
 	})
+
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("B")
 	if !token.Valid {
 		return nil, fmt.Errorf("Invalid token")
 	}

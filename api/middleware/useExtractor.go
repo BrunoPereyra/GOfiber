@@ -12,7 +12,7 @@ func MiddlewareUseExtractor() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		authHeader := c.Get("Authorization")
 		token := strings.Replace(authHeader, "Bearer ", "", 1)
-		_, err := jwt.ExtractDataFromToken(token)
+		nameUser, err := jwt.ExtractDataFromToken(token)
 		if err != nil {
 			fmt.Println(err)
 			return c.JSON(&fiber.Map{
@@ -20,6 +20,7 @@ func MiddlewareUseExtractor() fiber.Handler {
 				"err": err,
 			})
 		}
+		c.Context().SetUserValue("nameUser", nameUser)
 		return c.Next()
 	}
 }
