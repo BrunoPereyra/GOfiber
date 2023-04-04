@@ -27,10 +27,9 @@ func FindUser(c *fiber.Ctx) error {
 			"Err": err,
 		})
 	}
-	fmt.Println(userFind, "-------------")
 	findUsers := bson.D{{
 		Key:   "nameUser",
-		Value: userFind,
+		Value: userFind.NameUser,
 	}}
 	cursor, err := db.Find(context.TODO(), findUsers, options.Find().SetLimit(4))
 	if err != nil {
@@ -39,12 +38,12 @@ func FindUser(c *fiber.Ctx) error {
 		})
 	}
 	for cursor.Next(context.TODO()) {
-		fmt.Println(cursor, "+++++++")
 		var user models.User
 		cursor.Decode(&user)
 		users = append(users, user)
 	}
+	fmt.Println(users[0].NameUser, "YYYYYY")
 	return c.JSON(fiber.Map{
-		"res": "aaa",
+		"res": users,
 	})
 }
