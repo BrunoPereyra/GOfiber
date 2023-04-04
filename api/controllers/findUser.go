@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"backend/api/models"
+	"backend/api/validator"
 	"backend/database"
 	"context"
 	"fmt"
@@ -14,10 +15,7 @@ import (
 func FindUser(c *fiber.Ctx) error {
 	var users []models.User
 
-	type UserFind struct {
-		NameUser string `json:"nameUser"`
-	}
-	var userFind UserFind
+	var userFind validator.UserFind
 	client := database.DB()
 	db := client.Database("goMoongodb").Collection("users")
 
@@ -25,6 +23,11 @@ func FindUser(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{
 			"res": "error entrando data",
 			"Err": err,
+		})
+	}
+	if err := userFind.ValidateUserFind(); err != nil {
+		return c.JSON(fiber.Map{
+			"res": err,
 		})
 	}
 	findUsers := bson.D{{
