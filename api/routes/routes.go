@@ -9,10 +9,11 @@ import (
 
 func UserRoute(app *fiber.App) {
 
-	app.Post("/login", controllers.Login)
-	app.Get("/user", middleware.MiddlewareUseExtractor(), controllers.GeAllUser)
 	app.Post("/signup", controllers.Signup)
+	app.Post("/login", controllers.Login)
+	app.Post("/findUser", middleware.MiddlewareUseExtractor(), controllers.FindUser)
 
+	app.Get("/user", middleware.MiddlewareUseExtractor(), controllers.GeAllUser)
 	app.Get("/delete", middleware.MiddlewareUseExtractor(), controllers.DeleteUser)
 
 }
