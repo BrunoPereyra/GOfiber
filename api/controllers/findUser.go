@@ -5,7 +5,6 @@ import (
 	"backend/api/validator"
 	"backend/database"
 	"context"
-	"fmt"
 
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
@@ -45,7 +44,6 @@ func FindUser(c *fiber.Ctx) error {
 		cursor.Decode(&user)
 		users = append(users, user)
 	}
-	fmt.Println(users[0].NameUser, "YYYYYY")
 	return c.JSON(fiber.Map{
 		"res": users,
 	})

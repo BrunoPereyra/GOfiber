@@ -9,6 +9,7 @@ import (
 
 func UserRoute(app *fiber.App) {
 
+	app.Post("/piedrapapeltijera", controllers.PiedraPapelTijera)
 	app.Post("/signup", controllers.Signup)
 	app.Post("/login", controllers.Login)
 	app.Post("/findUser", middleware.MiddlewareUseExtractor(), controllers.FindUser)
